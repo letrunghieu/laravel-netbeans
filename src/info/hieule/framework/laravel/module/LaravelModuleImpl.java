@@ -23,6 +23,8 @@
  */
 package info.hieule.framework.laravel.module;
 
+import info.hieule.framework.laravel.module.LaravelModule.DIR_TYPE;
+import info.hieule.framework.laravel.module.LaravelModule.FILE_TYPE;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
 import org.openide.filesystems.FileObject;
 
@@ -35,12 +37,21 @@ public abstract class LaravelModuleImpl {
     protected PhpModule phpModule;
     protected static final String PHP_EXT = "php";
     protected static final String BLADE_EXT = "blade.php";
-    
+
     private FileObject _appDirectory;
-    
-    public LaravelModuleImpl(PhpModule phpModule)
-    {
+
+    public LaravelModuleImpl(PhpModule phpModule) {
         this.phpModule = phpModule;
     }
-    
+
+    public FileObject getConfigDirectory(DIR_TYPE type) {
+        return getDirectory(type, FILE_TYPE.CONFIG);
+    }
+
+    protected FileObject getDirectory(DIR_TYPE type, FILE_TYPE fileType) {
+        return getDirectory(type, fileType, null);
+    }
+
+    public abstract FileObject getDirectory(DIR_TYPE type, FILE_TYPE fileType, String packageName);
+
 }
