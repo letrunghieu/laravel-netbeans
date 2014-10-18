@@ -26,6 +26,7 @@ package info.hieule.framework.laravel.module;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
+import org.netbeans.modules.php.api.phpmodule.PhpModuleProperties;
 import org.openide.filesystems.FileObject;
 
 /**
@@ -75,6 +76,10 @@ public class LaravelModule implements ChangeListener {
 
     public FileObject getConfigDirectory(DIR_TYPE type) {
         return _impl.getConfigDirectory(type);
+    }
+
+    public PhpModuleProperties getPhpModuleProperties(PhpModule phpModule) {
+        return _impl.getPhpModuleProperties(phpModule);
     }
 
     public static LaravelModule forPhpModule(PhpModule phpModule) {

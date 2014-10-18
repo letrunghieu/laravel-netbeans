@@ -103,7 +103,12 @@ public class LaravelFrameworkProvider extends PhpFrameworkProvider {
 
     @Override
     public PhpModuleProperties getPhpModuleProperties(PhpModule phpModule) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PhpModuleProperties properties = new PhpModuleProperties();
+        LaravelModule module = LaravelModule.forPhpModule(phpModule);
+        if (module != null) {
+            module.getPhpModuleProperties(phpModule);
+        }
+        return properties;
     }
 
     @Override

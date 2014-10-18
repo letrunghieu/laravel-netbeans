@@ -26,6 +26,7 @@ package info.hieule.framework.laravel.module;
 import info.hieule.framework.laravel.module.LaravelModule.DIR_TYPE;
 import info.hieule.framework.laravel.module.LaravelModule.FILE_TYPE;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
+import org.netbeans.modules.php.api.phpmodule.PhpModuleProperties;
 import org.openide.filesystems.FileObject;
 
 /**
@@ -44,8 +45,46 @@ public abstract class LaravelModuleImpl {
         this.phpModule = phpModule;
     }
 
+    public PhpModuleProperties getPhpModuleProperties(PhpModule phpModule) {
+        PhpModuleProperties properties = new PhpModuleProperties();
+        FileObject webroot = getWebrootDirectory(DIR_TYPE.APP);
+        if (webroot != null) {
+            properties.setWebRoot(webroot);
+        }
+        FileObject test = getTestDirectory(DIR_TYPE.APP);
+        if (test != null) {
+            properties.setTests(test);
+        }
+        return properties;
+    }
+
     public FileObject getConfigDirectory(DIR_TYPE type) {
         return getDirectory(type, FILE_TYPE.CONFIG);
+    }
+
+    public FileObject getConfigDirectory(DIR_TYPE type, String packageName) {
+        return getDirectory(type, FILE_TYPE.CONFIG, packageName);
+    }
+
+    public FileObject getTestDirectory(DIR_TYPE type) {
+        return getDirectory(type, FILE_TYPE.TEST);
+    }
+
+    public FileObject getTestDirectory(DIR_TYPE type, String packageName) {
+        return getDirectory(type, FILE_TYPE.TEST, packageName);
+    }
+
+    public FileObject getWebrootDirectory(DIR_TYPE type) {
+        PhpModuleProperties properties = phpModule.getLookup().lookup(PhpModuleProperties.Factory.class).getProperties();
+        FileObject webroot = properties.getWebRoot();
+        if (webroot == phpModule.getSourceDirectory()) {
+            return getDirectory(type, FILE_TYPE.WEBROOT);
+        }
+        return webroot != null ? webroot : getDirectory(type, FILE_TYPE.WEBROOT);
+    }
+
+    public FileObject getWebrootDirectory(DIR_TYPE type, String pluginName) {
+        return getDirectory(type, FILE_TYPE.WEBROOT, pluginName);
     }
 
     protected FileObject getDirectory(DIR_TYPE type, FILE_TYPE fileType) {
