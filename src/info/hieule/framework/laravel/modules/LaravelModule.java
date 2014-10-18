@@ -21,24 +21,76 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel.module;
+package info.hieule.framework.laravel.modules;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
+import org.netbeans.modules.php.api.phpmodule.PhpModuleProperties;
 import org.openide.filesystems.FileObject;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class Laravel4ModuleImpl extends LaravelModuleImpl{
+public class LaravelModule implements ChangeListener {
 
-    public Laravel4ModuleImpl(PhpModule phpModule) {
-        super(phpModule);
+    public enum DIR_TYPE {
+
+        NONE,
+        APP,
+        START,
+        PUBLIC,
+        VENDOR;
+    }
+
+    public enum FILE_TYPE {
+
+        NONE,
+        MODEL,
+        VIEW,
+        ELEMENT,
+        LAYOUT,
+        CONTROLLER,
+        HELPER,
+        WEBROOT,
+        TEST,
+        TESTCASE,
+        COMMAND,
+        CONFIG,
+        TMP,;
+
+    }
+    private final PhpModule _phpModule;
+    private LaravelModuleImpl _impl;
+
+    public LaravelModule(PhpModule phpModule, LaravelModuleImpl impl) {
+        this._phpModule = phpModule;
+        this._impl = impl;
     }
 
     @Override
-    public FileObject getDirectory(LaravelModule.DIR_TYPE type, LaravelModule.FILE_TYPE fileType, String packageName) {
+    public void stateChanged(ChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public FileObject getConfigDirectory(DIR_TYPE type) {
+        return _impl.getConfigDirectory(type);
+    }
+
+    public PhpModuleProperties getPhpModuleProperties(PhpModule phpModule) {
+        return _impl.getPhpModuleProperties(phpModule);
+    }
+
+    public static LaravelModule forPhpModule(PhpModule phpModule) {
+        if (phpModule == null) {
+            phpModule = PhpModule.Factory.inferPhpModule();
+        }
+        if (phpModule == null) {
+            return null;
+        }
+        LaravelModuleFactory factory = LaravelModuleFactory.getInstance();
+        return factory.create(phpModule);
+    }
+
 }

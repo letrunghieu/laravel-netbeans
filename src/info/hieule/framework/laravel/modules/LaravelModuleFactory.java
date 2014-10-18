@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel.module;
+package info.hieule.framework.laravel.modules;
 
 import java.util.HashMap;
 import java.util.Map;

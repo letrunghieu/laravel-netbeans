@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel.module;
+package info.hieule.framework.laravel.modules;
 
-import info.hieule.framework.laravel.module.LaravelModule.DIR_TYPE;
-import info.hieule.framework.laravel.module.LaravelModule.FILE_TYPE;
+import info.hieule.framework.laravel.modules.LaravelModule.DIR_TYPE;
+import info.hieule.framework.laravel.modules.LaravelModule.FILE_TYPE;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
 import org.netbeans.modules.php.api.phpmodule.PhpModuleProperties;
 import org.openide.filesystems.FileObject;

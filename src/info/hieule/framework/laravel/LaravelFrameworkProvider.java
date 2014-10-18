@@ -23,7 +23,7 @@
  */
 package info.hieule.framework.laravel;
 
-import info.hieule.framework.laravel.module.LaravelModule;
+import info.hieule.framework.laravel.modules.LaravelModule;
 import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
