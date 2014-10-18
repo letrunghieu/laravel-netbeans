@@ -51,6 +51,7 @@ import org.openide.util.NbBundle;
  */
 public class LaravelFrameworkProvider extends PhpFrameworkProvider {
 
+    private static final LaravelFrameworkProvider _INSTANCE = new LaravelFrameworkProvider();
     private static final Logger _LOGGER = Logger.getLogger(LaravelFrameworkProvider.class.getName());
     private static final Comparator<File> _FILE_COMPARATOR = new Comparator<File>() {
         @Override
@@ -63,6 +64,11 @@ public class LaravelFrameworkProvider extends PhpFrameworkProvider {
         super("laravel",
                 NbBundle.getMessage(LaravelFrameworkProvider.class, "LaravelFramework"),
                 NbBundle.getMessage(LaravelFrameworkProvider.class, "LaravelFrameworkDescription"));
+    }
+
+    @PhpFrameworkProvider.Registration(position = 400)
+    public static LaravelFrameworkProvider getInstance() {
+        return _INSTANCE;
     }
 
     @Override
