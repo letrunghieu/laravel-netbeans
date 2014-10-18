@@ -24,11 +24,17 @@
 package info.hieule.framework.laravel;
 
 import org.netbeans.modules.php.spi.framework.PhpModuleActionsExtender;
+import org.openide.util.NbBundle;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
 public class LaravelActionsExtender extends PhpModuleActionsExtender{
+
+    @Override
+    public String getMenuName() {
+        return NbBundle.getMessage(LaravelActionsExtender.class, "Lbl_MenuName");
+    }
     
 }
