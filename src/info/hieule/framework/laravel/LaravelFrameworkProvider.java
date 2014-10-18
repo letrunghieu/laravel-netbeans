@@ -98,7 +98,7 @@ public class LaravelFrameworkProvider extends PhpFrameworkProvider {
 
     @Override
     public PhpModuleExtender createPhpModuleExtender(PhpModule phpModule) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new LaravelModuleExtender();
     }
 
     @Override
