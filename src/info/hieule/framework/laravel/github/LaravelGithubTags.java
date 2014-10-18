@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Hieu Le <letrunghieu.cse09@gmail.com>.
@@ -21,28 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel;
-
-import java.util.prefs.Preferences;
-import org.netbeans.modules.php.api.phpmodule.PhpModule;
+package info.hieule.framework.laravel.github;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class LaravelPreferences {
+public class LaravelGithubTags extends GithubTagBase {
 
-    private static final String ENABLED = "enabled";
+    private static final String _GITHUB_API_REPOS_TAGS = "https://api.github.com/repos/laravel/laravel/tags";
+    private static final LaravelGithubTags _INSTANCE = new LaravelGithubTags();
 
-    public static void setEnabled(PhpModule phpModule, Boolean isEnabled) {
-        getPreferences(phpModule).putBoolean(ENABLED, isEnabled);
+    public static LaravelGithubTags getInstance() {
+        return _INSTANCE;
     }
 
-    public static boolean isEnabled(PhpModule phpModule) {
-        return getPreferences(phpModule).getBoolean(ENABLED, false);
+    @Override
+    public String getUrl() {
+        return _GITHUB_API_REPOS_TAGS;
     }
 
-    private static Preferences getPreferences(PhpModule phpModule) {
-        return phpModule.getPreferences(LaravelPreferences.class, true);
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }

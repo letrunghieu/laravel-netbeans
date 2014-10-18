@@ -37,17 +37,18 @@ import org.netbeans.modules.php.spi.framework.PhpModuleExtender;
 import org.openide.filesystems.FileObject;
 import org.openide.util.HelpCtx;
 import org.openide.util.Lookup;
+import org.openide.util.NbBundle;
 import org.openide.util.lookup.Lookups;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class LaravelModuleExtender extends PhpModuleExtender{
+public class LaravelModuleExtender extends PhpModuleExtender {
 
     static final Logger LOGGER = Logger.getLogger(LaravelModuleExtender.class.getName());
     private NewProjectConfigurationPanel panel = null;
-    
+
     @Override
     public void addChangeListener(ChangeListener listener) {
         getPanel().addChangeListener(listener);
@@ -92,11 +93,19 @@ public class LaravelModuleExtender extends PhpModuleExtender{
         return null;
     }
 
+    @NbBundle.Messages({
+        "# {0} - name",
+        "LaravelModuleExtender.extending.exception=This project might be broken: {0}",
+        "LaravelModuleExtender.extending.exception.message=Laravel major version is not supported.",})
     @Override
     public Set<FileObject> extend(PhpModule phpModule) throws ExtendingException {
-        return new HashSet<FileObject>();
+        LaravelExtender extender = LaravelExtender.Factory.create(getPanel());
+        if (extender == null) {
+            throw new ExtendingException(Bundle.LaravelModuleExtender_extending_exception_message());
+        }
+        return extender.extend(phpModule);
     }
-    
+
     public NewProjectConfigurationPanel getPanel() {
         if (panel == null) {
             panel = new NewProjectConfigurationPanel();
@@ -110,5 +119,5 @@ public class LaravelModuleExtender extends PhpModuleExtender{
 //        panel.setError();
         return panel;
     }
-    
+
 }
