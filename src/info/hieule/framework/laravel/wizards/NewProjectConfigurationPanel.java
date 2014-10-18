@@ -67,19 +67,61 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        radUnzipGithub = new javax.swing.JRadioButton();
+        radUnzipLocal = new javax.swing.JRadioButton();
+        radComposer = new javax.swing.JRadioButton();
+
+        buttonGroup1.add(radUnzipGithub);
+        org.openide.awt.Mnemonics.setLocalizedText(radUnzipGithub, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radUnzipGithub.text")); // NOI18N
+        radUnzipGithub.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radUnzipGithub.toolTipText")); // NOI18N
+        radUnzipGithub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radUnzipGithubActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(radUnzipLocal);
+        org.openide.awt.Mnemonics.setLocalizedText(radUnzipLocal, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radUnzipLocal.text")); // NOI18N
+        radUnzipLocal.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radUnzipLocal.toolTipText")); // NOI18N
+
+        buttonGroup1.add(radComposer);
+        radComposer.setSelected(true);
+        org.openide.awt.Mnemonics.setLocalizedText(radComposer, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radComposer.text")); // NOI18N
+        radComposer.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radComposer.toolTipText")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(radUnzipGithub)
+                    .addComponent(radUnzipLocal)
+                    .addComponent(radComposer))
+                .addGap(0, 289, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(radUnzipGithub)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radUnzipLocal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radComposer)
+                .addGap(0, 231, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void radUnzipGithubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radUnzipGithubActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radUnzipGithubActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JRadioButton radComposer;
+    private javax.swing.JRadioButton radUnzipGithub;
+    private javax.swing.JRadioButton radUnzipLocal;
     // End of variables declaration//GEN-END:variables
 }
