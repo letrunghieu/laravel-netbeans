@@ -27,6 +27,8 @@ import info.hieule.framework.laravel.github.LaravelGithubTags;
 import info.hieule.framework.laravel.versions.LaravelVersionComparator;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.event.ChangeListener;
 import org.openide.util.ChangeSupport;
 import org.openide.util.NbBundle;
@@ -85,11 +87,15 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
     public Boolean isComposer() {
         return radComposer.isSelected();
     }
-    
+
     public String getSelectedGithubTagUrl() {
-        String selectedVersion = (String)cbbGithubVersions.getSelectedItem();
+        String selectedVersion = (String) cbbGithubVersions.getSelectedItem();
         LaravelGithubTags githubTags = LaravelGithubTags.getInstance();
         return githubTags.getZipUrl(selectedVersion);
+    }
+
+    public JLabel getProgressTextComp() {
+        return lblMessage;
     }
 
     @NbBundle.Messages(
@@ -105,8 +111,7 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
         if (names.length > 0) {
             cbbGithubVersions.setSelectedIndex(names.length - 1);
         }
-        if (githubTags.isNetworkError())
-        {
+        if (githubTags.isNetworkError()) {
             lblMessage.setText(Bundle.NetworkError_CannotGetGithubTags());
         }
     }

@@ -38,7 +38,7 @@ public class Laravel4ModuleImpl extends LaravelModuleImpl{
 
     @Override
     public FileObject getDirectory(LaravelModule.DIR_TYPE type, LaravelModule.FILE_TYPE fileType, String packageName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
     
 }

@@ -43,7 +43,7 @@ public interface LaravelExtender {
         @CheckForNull
         public static LaravelExtender create(NewProjectConfigurationPanel panel) {
 
-            return new LaravelExtenderVerion4(panel);
+            return new LaravelExtenderVersion4(panel);
         }
     }
 }

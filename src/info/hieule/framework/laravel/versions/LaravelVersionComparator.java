@@ -32,11 +32,21 @@ import java.util.Comparator;
  */
 public class LaravelVersionComparator implements Comparator<String> {
 
+    private boolean _isNewestFirst;
+
+    public LaravelVersionComparator() {
+        this(true);
+    }
+
+    public LaravelVersionComparator(boolean isNewestFirst) {
+        _isNewestFirst = isNewestFirst;
+    }
+
     @Override
     public int compare(String o1, String o2) {
         Version v1 = LaravelVersion.fromString(o1);
         Version v2 = LaravelVersion.fromString(o2);
-        return v1.compareTo(v2);
+        return _isNewestFirst ? v2.compareTo(v1) : v1.compareTo(v2);
     }
-    
+
 }
