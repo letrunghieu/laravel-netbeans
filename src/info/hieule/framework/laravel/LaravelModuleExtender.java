@@ -23,13 +23,21 @@
  */
 package info.hieule.framework.laravel;
 
+import info.hieule.framework.laravel.wizards.ConfigurationInnerPanel;
+import info.hieule.framework.laravel.wizards.NewProjectConfigurationPanel;
+import java.awt.Container;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
 import org.netbeans.modules.php.spi.framework.PhpModuleExtender;
 import org.openide.filesystems.FileObject;
 import org.openide.util.HelpCtx;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.Lookups;
 
 /**
  *
@@ -37,44 +45,70 @@ import org.openide.util.HelpCtx;
  */
 public class LaravelModuleExtender extends PhpModuleExtender{
 
+    static final Logger LOGGER = Logger.getLogger(LaravelModuleExtender.class.getName());
+    private NewProjectConfigurationPanel panel = null;
+    
     @Override
     public void addChangeListener(ChangeListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getPanel().addChangeListener(listener);
     }
 
     @Override
     public void removeChangeListener(ChangeListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getPanel().removeChangeListener(listener);
     }
 
     @Override
     public JComponent getComponent() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getPanel();
     }
 
     @Override
     public HelpCtx getHelp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public boolean isValid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean isValid = getErrorMessage() == null;
+        Container parent = getPanel().getParent();
+//        if (parent != null) {
+//            parent = parent.getParent();
+//        }
+//        if (parent != null) {
+//            setComponentsEnabled(parent, isValid);
+//            getPanel().setRadioButtonsEnabled(true);
+//        }
+        return isValid;
     }
 
     @Override
     public String getErrorMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getPanel().getErrorMessage();
     }
 
     @Override
     public String getWarningMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public Set<FileObject> extend(PhpModule phpModule) throws ExtendingException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new HashSet<FileObject>();
+    }
+    
+    public NewProjectConfigurationPanel getPanel() {
+        if (panel == null) {
+            panel = new NewProjectConfigurationPanel();
+//            Lookup lookup = Lookups.forPath(ConfigurationInnerPanel.CONFIGURATION_INNER_PANELS_PATH);
+//            Collection<? extends ConfigurationInnerPanel> configurationPanels = lookup.lookupAll(ConfigurationInnerPanel.class);
+//            for (ConfigurationInnerPanel configurationPanel : configurationPanels) {
+//                panel.addPanel(configurationPanel);
+//            }
+//            panel.changePanel();
+        }
+//        panel.setError();
+        return panel;
     }
     
 }
