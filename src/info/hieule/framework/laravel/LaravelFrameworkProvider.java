@@ -23,6 +23,7 @@
  */
 package info.hieule.framework.laravel;
 
+import info.hieule.framework.laravel.commands.LaravelCommandSupport;
 import info.hieule.framework.laravel.modules.LaravelModule;
 import java.io.File;
 import java.util.Collections;
@@ -123,7 +124,7 @@ public class LaravelFrameworkProvider extends PhpFrameworkProvider {
 
     @Override
     public FrameworkCommandSupport getFrameworkCommandSupport(PhpModule phpModule) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new LaravelCommandSupport(phpModule);
     }
 
 }
