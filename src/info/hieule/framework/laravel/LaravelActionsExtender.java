@@ -21,24 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel.module;
+package info.hieule.framework.laravel;
 
-import org.netbeans.modules.php.api.phpmodule.PhpModule;
-import org.openide.filesystems.FileObject;
+import org.netbeans.modules.php.spi.framework.PhpModuleActionsExtender;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class Laravel4ModuleImpl extends LaravelModuleImpl{
-
-    public Laravel4ModuleImpl(PhpModule phpModule) {
-        super(phpModule);
-    }
-
-    @Override
-    public FileObject getDirectory(LaravelModule.DIR_TYPE type, LaravelModule.FILE_TYPE fileType, String packageName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public class LaravelActionsExtender extends PhpModuleActionsExtender{
     
 }
