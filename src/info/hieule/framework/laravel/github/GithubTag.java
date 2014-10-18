@@ -29,10 +29,10 @@ package info.hieule.framework.laravel.github;
  */
 public class GithubTag {
 
-    private final String _name;
-    private final String _zipball_url;
-    private final String _tarball_url;
-    private final GithubTagCommit _commit;
+    private final String name;
+    private final String zipball_url;
+    private final String tarball_url;
+    private final GithubTagCommit commit;
 
     // Format
     //  {
@@ -45,30 +45,30 @@ public class GithubTag {
     //    }
     //  }
     public GithubTag(String name, String zipball_url, String tarball_url, GithubTagCommit commit) {
-        this._name = name;
-        this._zipball_url = zipball_url;
-        this._tarball_url = tarball_url;
-        this._commit = commit;
+        this.name = name;
+        this.zipball_url = zipball_url;
+        this.tarball_url = tarball_url;
+        this.commit = commit;
     }
 
     public String getName() {
-        return _name;
+        return name;
     }
 
     public String getZipballUrl() {
-        return _zipball_url;
+        return zipball_url;
     }
 
     public String getTarballUrl() {
-        return _tarball_url;
+        return tarball_url;
     }
 
     public GithubTagCommit getCommit() {
-        return _commit;
+        return commit;
     }
 
     @Override
     public String toString() {
-        return _name;
+        return name;
     }
 }

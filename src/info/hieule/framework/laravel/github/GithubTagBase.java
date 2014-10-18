@@ -61,7 +61,7 @@ public abstract class GithubTagBase {
             // JSON -> Object
             Gson gson = new Gson();
             URL tagsJson = new URL(getUrl());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(tagsJson.openStream(), "UTF-8")); // NOI18N
+            BufferedReader reader = new BufferedReader(new InputStreamReader(tagsJson.openStream(), "UTF-8"));
             try {
                 JsonReader jsonReader = new JsonReader(reader);
                 Type type = new TypeToken<ArrayList<GithubTag>>() {

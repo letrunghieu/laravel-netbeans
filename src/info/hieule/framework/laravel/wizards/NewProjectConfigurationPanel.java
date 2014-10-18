@@ -23,8 +23,13 @@
  */
 package info.hieule.framework.laravel.wizards;
 
+import info.hieule.framework.laravel.github.LaravelGithubTags;
+import info.hieule.framework.laravel.versions.LaravelVersionComparator;
+import java.util.Arrays;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ChangeListener;
 import org.openide.util.ChangeSupport;
+import org.openide.util.NbBundle;
 
 /**
  *
@@ -40,6 +45,7 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
      */
     public NewProjectConfigurationPanel() {
         initComponents();
+        _initUnzipGitHubTag();
     }
 
     public void addChangeListener(ChangeListener changeListener) {
@@ -79,6 +85,31 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
     public Boolean isComposer() {
         return radComposer.isSelected();
     }
+    
+    public String getSelectedGithubTagUrl() {
+        String selectedVersion = (String)cbbGithubVersions.getSelectedItem();
+        LaravelGithubTags githubTags = LaravelGithubTags.getInstance();
+        return githubTags.getZipUrl(selectedVersion);
+    }
+
+    @NbBundle.Messages(
+            "NetworkError.CannotGetGithubTags=Network errors: cannot get tags from Github"
+    )
+    private void _initUnzipGitHubTag() {
+        radUnzipGithub.setSelected(true);
+        LaravelGithubTags githubTags = LaravelGithubTags.getInstance();
+        String names[] = githubTags.getNames();
+        Arrays.sort(names, new LaravelVersionComparator());
+        cbbGithubVersions.setEnabled(true);
+        cbbGithubVersions.setModel(new DefaultComboBoxModel<String>(names));
+        if (names.length > 0) {
+            cbbGithubVersions.setSelectedIndex(names.length - 1);
+        }
+        if (githubTags.isNetworkError())
+        {
+            lblMessage.setText(Bundle.NetworkError_CannotGetGithubTags());
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,6 +124,8 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
         radUnzipGithub = new javax.swing.JRadioButton();
         radUnzipLocal = new javax.swing.JRadioButton();
         radComposer = new javax.swing.JRadioButton();
+        cbbGithubVersions = new javax.swing.JComboBox();
+        lblMessage = new javax.swing.JLabel();
 
         buttonGroup1.add(radUnzipGithub);
         org.openide.awt.Mnemonics.setLocalizedText(radUnzipGithub, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radUnzipGithub.text")); // NOI18N
@@ -112,26 +145,39 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(radComposer, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radComposer.text")); // NOI18N
         radComposer.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radComposer.toolTipText")); // NOI18N
 
+        cbbGithubVersions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbGithubVersions.setEnabled(false);
+
+        org.openide.awt.Mnemonics.setLocalizedText(lblMessage, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.lblMessage.text")); // NOI18N
+        lblMessage.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.lblMessage.toolTipText")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radUnzipGithub)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(radUnzipGithub)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbbGithubVersions, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(radUnzipLocal)
                     .addComponent(radComposer))
-                .addGap(0, 289, Short.MAX_VALUE))
+                .addGap(0, 183, Short.MAX_VALUE))
+            .addComponent(lblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(radUnzipGithub)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radUnzipGithub)
+                    .addComponent(cbbGithubVersions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radUnzipLocal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radComposer)
-                .addGap(0, 231, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                .addComponent(lblMessage))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -142,6 +188,8 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox cbbGithubVersions;
+    private javax.swing.JLabel lblMessage;
     private javax.swing.JRadioButton radComposer;
     private javax.swing.JRadioButton radUnzipGithub;
     private javax.swing.JRadioButton radUnzipLocal;

@@ -43,6 +43,15 @@ public class LaravelGithubTags extends GithubTagBase {
 
     @Override
     public Filter getFilter() {
-        return null;
+        return new Laravel4Filter();
+    }
+    
+    private static class Laravel4Filter implements Filter {
+
+        @Override
+        public boolean accept(String name) {
+            return name.matches("^v4\\.\\d+\\.\\d+.*");
+        }
+        
     }
 }

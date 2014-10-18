@@ -56,7 +56,7 @@
                     <compile-dependency/>
                     <run-dependency>
                         <release-version>0</release-version>
-                        <specification-version>0.21.1</specification-version>
+                        <implementation-version/>
                     </run-dependency>
                 </dependency>
                 <dependency>
@@ -118,6 +118,10 @@
             <class-path-extension>
                 <runtime-relative-path>ext/gson-2.2.4-for-cakephp-netbeans.jar</runtime-relative-path>
                 <binary-origin>D:\PROJECTS\PERSONAL\laravel-netbeans\release\modules\ext\gson-2.2.4-for-cakephp-netbeans.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/java-semver-0.8.0.jar</runtime-relative-path>
+                <binary-origin>D:\PROJECTS\PERSONAL\laravel-netbeans\release\modules\ext\java-semver-0.8.0.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>

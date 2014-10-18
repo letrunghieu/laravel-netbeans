@@ -21,27 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel.github;
+package info.hieule.framework.laravel.versions;
+
+import com.github.zafarkhaja.semver.Version;
+import java.util.Comparator;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class GithubTagCommit {
+public class LaravelVersionComparator implements Comparator<String> {
 
-    private final String sha;
-    private final String url;
-
-    public GithubTagCommit(String sha, String url) {
-        this.sha = sha;
-        this.url = url;
+    @Override
+    public int compare(String o1, String o2) {
+        Version v1 = LaravelVersion.fromString(o1);
+        Version v2 = LaravelVersion.fromString(o2);
+        return v1.compareTo(v2);
     }
-
-    public String getSha() {
-        return sha;
-    }
-
-    public String getUrl() {
-        return url;
-    }
+    
 }

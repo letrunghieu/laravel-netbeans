@@ -21,27 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel.github;
+package info.hieule.framework.laravel.versions;
+
+import com.github.zafarkhaja.semver.Version;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class GithubTagCommit {
+public class LaravelVersion {
 
-    private final String sha;
-    private final String url;
-
-    public GithubTagCommit(String sha, String url) {
-        this.sha = sha;
-        this.url = url;
+    public static Version fromString(String version) {
+        return Version.valueOf(version.substring(1));
     }
 
-    public String getSha() {
-        return sha;
-    }
-
-    public String getUrl() {
-        return url;
+    public static String versionToString(Version version) {
+        return "v" + version.toString();
     }
 }
