@@ -53,7 +53,7 @@ public abstract class LaravelModuleImpl {
 //        }
         FileObject test = getTestDirectory(DIR_TYPE.APP);
         if (test != null) {
-            properties.setTests(test);
+            properties = properties.setTests(test);
         }
         return properties;
     }
@@ -89,7 +89,7 @@ public abstract class LaravelModuleImpl {
     protected FileObject getDirectory(DIR_TYPE type, FILE_TYPE fileType) {
         return getDirectory(type, fileType, null);
     }
-    
+
     protected final FileObject getLaravelDirectory() {
         return LaravelModule.geLaravelDirectory(phpModule);
     }
