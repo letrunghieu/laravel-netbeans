@@ -94,9 +94,6 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
         Arrays.sort(names, new LaravelVersionComparator());
         cbbGithubVersions.setEnabled(true);
         cbbGithubVersions.setModel(new DefaultComboBoxModel<String>(names));
-        if (names.length > 0) {
-            cbbGithubVersions.setSelectedIndex(names.length - 1);
-        }
         if (githubTags.isNetworkError()) {
             lblMessage.setText(Bundle.NetworkError_CannotGetGithubTags());
         }
