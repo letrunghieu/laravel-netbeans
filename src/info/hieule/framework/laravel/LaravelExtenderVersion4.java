@@ -73,6 +73,9 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
             throw new PhpModuleExtender.ExtendingException(Bundle.LaravelModuleExtender_extending_exception(phpModule.getName()));
         }
         _installLaravel(phpModule, targetDirectory);
+        targetDirectory.refresh(true);
+        
+        LaravelPreferences.setEnabled(phpModule, Boolean.TRUE);
         return Collections.emptySet();
     }
 
@@ -114,13 +117,14 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
                         throw new IOException("Could not create directory: " + file);
                     }
                 }
+                progressText.setText("Unzip: " + entry.getName().substring(position + 1));
             }
             zipFile.close();
             zip.delete();
         } catch (MalformedURLException ex) {
-            System.out.println(sourceUrl + " is not a valid URL");
+            progressText.setText(sourceUrl + " is not a valid URL");
         } catch (IOException ex) {
-            System.out.println("Cannot open " + sourceUrl + " as stream");
+            progressText.setText("Cannot open " + sourceUrl + " as stream");
         }
     }
 
@@ -144,6 +148,7 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
         "LaravelModuleExtender.extending.exception.composer.install=failed installing composer: {0}"
     })
     private boolean _composerInstall(FileObject targetDirectory, final PhpModule phpModule) throws ExtendingException {
+        _panel.getProgressTextComp().setText("Running: composer install");
         boolean isSuccess = true;
         try {
             Composer composer = Composer.getDefault();
