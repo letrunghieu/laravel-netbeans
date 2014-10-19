@@ -24,6 +24,7 @@
 package info.hieule.framework.laravel;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.Set;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
 import org.netbeans.modules.php.spi.framework.PhpModuleIgnoredFilesExtender;
@@ -40,7 +41,7 @@ public class LaravelIgnoredFilesExtender extends PhpModuleIgnoredFilesExtender {
 
     @Override
     public Set<File> getIgnoredFiles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Collections.emptySet();
     }
 
 }

@@ -89,7 +89,7 @@ public class LaravelFrameworkProvider extends PhpFrameworkProvider {
             return new File[0];
         }
         if (config.isFolder()) {
-            Enumeration<? extends FileObject> children = config.getChildren(true);
+            Enumeration<? extends FileObject> children = config.getChildren(false);
             while (children.hasMoreElements()) {
                 FileObject child = children.nextElement();
                 if (child.isData() && FileUtils.isPhpFile(child)) {

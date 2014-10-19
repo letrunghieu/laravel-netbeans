@@ -82,20 +82,25 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
     }
 
     public JLabel getProgressTextComp() {
-        return lblMessage;
+        return lblProgress;
     }
 
-    @NbBundle.Messages(
-            "NetworkError.CannotGetGithubTags=Network errors: cannot get tags from Github"
-    )
+    @NbBundle.Messages({
+        "NetworkError.CannotGetGithubTags=Network errors: cannot get tags from Github",
+        "GettingTagsFromGithub=Getting tags from Github",
+        "AllTagsFetched=All tags was fetched successfully, ready to create a new Laravel project"
+    })
     private void _initUnzipGitHubTag() {
+        lblProgress.setText(Bundle.GettingTagsFromGithub());
         LaravelGithubTags githubTags = LaravelGithubTags.getInstance();
         String names[] = githubTags.getNames();
         Arrays.sort(names, new LaravelVersionComparator());
         cbbGithubVersions.setEnabled(true);
         cbbGithubVersions.setModel(new DefaultComboBoxModel<String>(names));
         if (githubTags.isNetworkError()) {
-            lblMessage.setText(Bundle.NetworkError_CannotGetGithubTags());
+            lblProgress.setText(Bundle.NetworkError_CannotGetGithubTags());
+        } else {
+            lblProgress.setText(Bundle.AllTagsFetched());
         }
     }
 
@@ -110,28 +115,29 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         cbbGithubVersions = new javax.swing.JComboBox();
-        lblMessage = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        lblProgress = new javax.swing.JLabel();
 
         cbbGithubVersions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbGithubVersions.setEnabled(false);
 
-        org.openide.awt.Mnemonics.setLocalizedText(lblMessage, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.lblMessage.text")); // NOI18N
-        lblMessage.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.lblMessage.toolTipText")); // NOI18N
-
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.jLabel1.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(lblProgress, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.lblProgress.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbbGithubVersions, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbbGithubVersions, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblProgress))
                 .addGap(0, 101, Short.MAX_VALUE))
-            .addComponent(lblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,8 +145,8 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbbGithubVersions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
-                .addComponent(lblMessage))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
+                .addComponent(lblProgress))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -149,6 +155,6 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cbbGithubVersions;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblMessage;
+    private javax.swing.JLabel lblProgress;
     // End of variables declaration//GEN-END:variables
 }
