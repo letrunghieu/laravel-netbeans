@@ -58,13 +58,13 @@ import org.openide.util.NbBundle;
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
 public class LaravelExtenderVersion4 implements LaravelExtender {
-    
+
     private NewProjectConfigurationPanel _panel;
-    
+
     public LaravelExtenderVersion4(NewProjectConfigurationPanel panel) {
         this._panel = panel;
     }
-    
+
     @Override
     public Set<FileObject> extend(PhpModule phpModule) throws PhpModuleExtender.ExtendingException {
         FileObject targetDirectory = phpModule.getSourceDirectory();
@@ -75,23 +75,19 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
         _installLaravel(phpModule, targetDirectory);
         return Collections.emptySet();
     }
-    
+
     private void _installLaravel(PhpModule phpModule, FileObject targetDirectory) throws ExtendingException {
-        if (_panel.isUnzipGitub()) {
-            _installByGithubTag(_panel.getSelectedGithubTagUrl(), targetDirectory, _panel.getProgressTextComp());
-        } else if (_panel.isUnzipLocal()) {
-            
-        }
+        _installByGithubTag(_panel.getSelectedGithubTagUrl(), targetDirectory, _panel.getProgressTextComp());
         _composerInstall(targetDirectory, phpModule);
     }
-    
+
     private void _installByGithubTag(String sourceUrl, FileObject target, JLabel progressText) {
         try {
             File targetDirectory = FileUtil.toFile(target);
             if (targetDirectory == null) {
                 return;
             }
-            
+
             URL zipUrl = new URL(sourceUrl);
             // Download zip file
             InputStream in = new BufferedInputStream(zipUrl.openStream(), 1024);
@@ -127,7 +123,7 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
             System.out.println("Cannot open " + sourceUrl + " as stream");
         }
     }
-    
+
     public static void copyInputStream(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];
         int len = in.read(buffer);
@@ -138,18 +134,18 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
         in.close();
         out.close();
     }
-    
+
     public static boolean buildDirectory(File file) {
         return file.exists() || file.mkdirs();
     }
-    
+
     private void _installByComposer(PhpModule phpModule, FileObject targetDirectory) throws ExtendingException {
         LaravelPreferences.setEnabled(phpModule, Boolean.FALSE);
         if (!_composerInstall(targetDirectory, phpModule)) {
             return;
         }
     }
-    
+
     @NbBundle.Messages({
         "# {0} - name",
         "LaravelModuleExtender.extending.exception.composer.install=failed installing composer: {0}"
@@ -175,5 +171,5 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
         }
         return isSuccess;
     }
-    
+
 }

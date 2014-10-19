@@ -76,18 +76,6 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
         return true;
     }
 
-    public Boolean isUnzipGitub() {
-        return radUnzipGithub.isSelected();
-    }
-
-    public Boolean isUnzipLocal() {
-        return radUnzipLocal.isSelected();
-    }
-
-    public Boolean isComposer() {
-        return radComposer.isSelected();
-    }
-
     public String getSelectedGithubTagUrl() {
         String selectedVersion = (String) cbbGithubVersions.getSelectedItem();
         LaravelGithubTags githubTags = LaravelGithubTags.getInstance();
@@ -102,7 +90,6 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
             "NetworkError.CannotGetGithubTags=Network errors: cannot get tags from Github"
     )
     private void _initUnzipGitHubTag() {
-        radUnzipGithub.setSelected(true);
         LaravelGithubTags githubTags = LaravelGithubTags.getInstance();
         String names[] = githubTags.getNames();
         Arrays.sort(names, new LaravelVersionComparator());
@@ -126,29 +113,9 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        radUnzipGithub = new javax.swing.JRadioButton();
-        radUnzipLocal = new javax.swing.JRadioButton();
-        radComposer = new javax.swing.JRadioButton();
         cbbGithubVersions = new javax.swing.JComboBox();
         lblMessage = new javax.swing.JLabel();
-
-        buttonGroup1.add(radUnzipGithub);
-        org.openide.awt.Mnemonics.setLocalizedText(radUnzipGithub, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radUnzipGithub.text")); // NOI18N
-        radUnzipGithub.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radUnzipGithub.toolTipText")); // NOI18N
-        radUnzipGithub.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radUnzipGithubActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(radUnzipLocal);
-        org.openide.awt.Mnemonics.setLocalizedText(radUnzipLocal, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radUnzipLocal.text")); // NOI18N
-        radUnzipLocal.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radUnzipLocal.toolTipText")); // NOI18N
-
-        buttonGroup1.add(radComposer);
-        radComposer.setSelected(true);
-        org.openide.awt.Mnemonics.setLocalizedText(radComposer, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radComposer.text")); // NOI18N
-        radComposer.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.radComposer.toolTipText")); // NOI18N
+        jLabel1 = new javax.swing.JLabel();
 
         cbbGithubVersions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbGithubVersions.setEnabled(false);
@@ -156,47 +123,36 @@ public class NewProjectConfigurationPanel extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(lblMessage, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.lblMessage.text")); // NOI18N
         lblMessage.setToolTipText(org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.lblMessage.toolTipText")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(NewProjectConfigurationPanel.class, "NewProjectConfigurationPanel.jLabel1.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(radUnzipGithub)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbbGithubVersions, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(radUnzipLocal)
-                    .addComponent(radComposer))
-                .addGap(0, 183, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbbGithubVersions, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 101, Short.MAX_VALUE))
             .addComponent(lblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radUnzipGithub)
-                    .addComponent(cbbGithubVersions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radUnzipLocal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radComposer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                    .addComponent(cbbGithubVersions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
                 .addComponent(lblMessage))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void radUnzipGithubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radUnzipGithubActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radUnzipGithubActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cbbGithubVersions;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblMessage;
-    private javax.swing.JRadioButton radComposer;
-    private javax.swing.JRadioButton radUnzipGithub;
-    private javax.swing.JRadioButton radUnzipLocal;
     // End of variables declaration//GEN-END:variables
 }
