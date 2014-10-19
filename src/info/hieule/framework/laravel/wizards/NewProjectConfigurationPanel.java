@@ -27,7 +27,6 @@ import info.hieule.framework.laravel.github.LaravelGithubTags;
 import info.hieule.framework.laravel.versions.LaravelVersionComparator;
 import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.event.ChangeListener;
 import org.openide.util.ChangeSupport;

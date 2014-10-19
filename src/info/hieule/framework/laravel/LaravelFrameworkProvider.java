@@ -113,7 +113,7 @@ public class LaravelFrameworkProvider extends PhpFrameworkProvider {
         PhpModuleProperties properties = new PhpModuleProperties();
         LaravelModule module = LaravelModule.forPhpModule(phpModule);
         if (module != null) {
-            module.getPhpModuleProperties(phpModule);
+            properties = module.getPhpModuleProperties(phpModule);
         }
         return properties;
     }

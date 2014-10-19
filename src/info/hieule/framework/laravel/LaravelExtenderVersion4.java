@@ -139,13 +139,6 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
         return file.exists() || file.mkdirs();
     }
 
-    private void _installByComposer(PhpModule phpModule, FileObject targetDirectory) throws ExtendingException {
-        LaravelPreferences.setEnabled(phpModule, Boolean.FALSE);
-        if (!_composerInstall(targetDirectory, phpModule)) {
-            return;
-        }
-    }
-
     @NbBundle.Messages({
         "# {0} - name",
         "LaravelModuleExtender.extending.exception.composer.install=failed installing composer: {0}"
