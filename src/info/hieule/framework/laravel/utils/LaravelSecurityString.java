@@ -38,7 +38,7 @@ import org.openide.filesystems.FileObject;
 public class LaravelSecurityString {
 
     private static final String _SECURITY_STRING_LINE = "'key' => 'YourSecretKey!!!'";
-    private static final String _SECURITY_STRING_FORMAT = "\t'key' => '%s'";
+    private static final String _SECURITY_STRING_FORMAT = "\t'key' => '%s',";
 
     public static void updateSecurityString(FileObject configFile) throws IOException {
         List<String> lines = configFile.asLines();
