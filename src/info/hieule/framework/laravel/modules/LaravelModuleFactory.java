@@ -25,6 +25,7 @@ package info.hieule.framework.laravel.modules;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.netbeans.api.annotations.common.NonNull;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
 
 /**
@@ -72,5 +73,13 @@ public class LaravelModuleFactory {
 
     private void finish() {
         _isCreating = false;
+    }
+    
+    public void reset(@NonNull LaravelModule laravelModule) {
+        PhpModule phpModule = laravelModule.getPhpModule();
+        if (phpModule != null) {
+            LaravelModuleImpl impl = getLaravelModuleImpl(phpModule);
+            laravelModule.setImpl(impl);
+        }
     }
 }

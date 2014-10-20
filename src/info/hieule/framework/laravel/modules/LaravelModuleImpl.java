@@ -105,5 +105,7 @@ public abstract class LaravelModuleImpl {
     public abstract FileObject getDirectory(DIR_TYPE type, FILE_TYPE fileType, String packageName);
 
     public abstract FileObject getDirectory(DIR_TYPE type);
+    
+    public abstract void refresh();
 
 }

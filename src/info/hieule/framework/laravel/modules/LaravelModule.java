@@ -24,6 +24,8 @@
 package info.hieule.framework.laravel.modules;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeSupport;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.annotations.common.CheckForNull;
@@ -62,9 +64,18 @@ public class LaravelModule implements ChangeListener {
         PUBLIC,
 
     }
-    public static String PROPERTY_CHANGE_LARAVEL = "property-change-laravel";
+    public final static String PROPERTY_CHANGE_LARAVEL = "property-change-laravel";
     private final PhpModule _phpModule;
-    private final LaravelModuleImpl _impl;
+
+    public PhpModule getPhpModule() {
+        return _phpModule;
+    }
+    private LaravelModuleImpl _impl;
+
+    public void setImpl(LaravelModuleImpl _impl) {
+        this._impl = _impl;
+    }
+    private final PropertyChangeSupport _propertyChangeSupport = new PropertyChangeSupport(this);
 
     public LaravelModule(PhpModule phpModule, LaravelModuleImpl impl) {
         this._phpModule = phpModule;
@@ -73,11 +84,28 @@ public class LaravelModule implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        _impl.refresh();
     }
     
     public void notifyPropertyChanged(PropertyChangeEvent event) {
-        
+        if (PROPERTY_CHANGE_LARAVEL == event.getPropertyName()) {
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    refreshNodes();
+                    reset();
+                }
+            });
+        }
+    }
+    
+    void refreshNodes() {
+        _propertyChangeSupport.firePropertyChange(PROPERTY_CHANGE_LARAVEL, null, null);
+    }
+    
+    void reset() {
+        LaravelModuleFactory.getInstance().reset(this);
     }
 
     @CheckForNull

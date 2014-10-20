@@ -143,4 +143,9 @@ public class Laravel4ModuleImpl extends LaravelModuleImpl {
         return sourceDirectory.getFileObject(path);
     }
 
+    @Override
+    public void refresh() {
+        // refresh framework
+    }
+
 }
