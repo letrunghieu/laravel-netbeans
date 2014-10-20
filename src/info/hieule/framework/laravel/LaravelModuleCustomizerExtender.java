@@ -23,11 +23,15 @@
  */
 package info.hieule.framework.laravel;
 
+import info.hieule.framework.laravel.modules.LaravelModule;
+import info.hieule.framework.laravel.ui.customizer.LaravelModuleCustomizerPanel;
+import java.beans.PropertyChangeEvent;
 import java.util.EnumSet;
 import javax.swing.JComponent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
 import org.netbeans.modules.php.spi.framework.PhpModuleCustomizerExtender;
+import org.openide.util.ChangeSupport;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 
@@ -36,10 +40,12 @@ import org.openide.util.NbBundle;
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
 public class LaravelModuleCustomizerExtender extends PhpModuleCustomizerExtender {
-    
+
+    private LaravelModuleCustomizerPanel _panel;
     private final PhpModule _phpModule;
     private final boolean _isEnabled;
-    
+    private final ChangeSupport _changeSupport = new ChangeSupport(this);
+
     public LaravelModuleCustomizerExtender(PhpModule phpModule) {
         this._phpModule = phpModule;
         this._isEnabled = LaravelPreferences.isEnabled(phpModule);
@@ -52,37 +58,65 @@ public class LaravelModuleCustomizerExtender extends PhpModuleCustomizerExtender
 
     @Override
     public void addChangeListener(ChangeListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (listener instanceof LaravelModule) {
+            _changeSupport.addChangeListener(listener);
+        }
+        _getPanel().addChangeListener(listener);
     }
 
     @Override
     public void removeChangeListener(ChangeListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (listener instanceof LaravelModule) {
+            _changeSupport.addChangeListener(listener);
+        }
+        _getPanel().removeChangeListener(listener);
     }
 
     @Override
     public JComponent getComponent() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return _getPanel();
     }
 
     @Override
     public HelpCtx getHelp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public boolean isValid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //validate
+        return true;
     }
 
     @Override
     public String getErrorMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //validate
+        return "";
     }
 
     @Override
     public EnumSet<Change> save(PhpModule phpModule) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EnumSet<Change> enumset = EnumSet.of(Change.FRAMEWORK_CHANGE);
+        if (_isEnabled != _getPanel().isLaravelEnabled()) {
+            LaravelPreferences.setEnabled(phpModule, !_isEnabled);
+        }
+        LaravelModule module = LaravelModule.forPhpModule(phpModule);
+        if (module != null) {
+            module.notifyPropertyChanged(new PropertyChangeEvent(this, LaravelModule.PROPERTY_CHANGE_LARAVEL, null, null));
+        }
+        return enumset;
     }
-    
+
+    void fireChange() {
+        _changeSupport.fireChange();
+    }
+
+    private LaravelModuleCustomizerPanel _getPanel() {
+        if (_panel == null) {
+            _panel = new LaravelModuleCustomizerPanel();
+            _panel.setLaravelEnabled(_isEnabled);
+        }
+        return _panel;
+    }
+
 }

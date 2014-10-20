@@ -23,6 +23,7 @@
  */
 package info.hieule.framework.laravel.modules;
 
+import java.beans.PropertyChangeEvent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.annotations.common.CheckForNull;
@@ -61,6 +62,7 @@ public class LaravelModule implements ChangeListener {
         PUBLIC,
 
     }
+    public static String PROPERTY_CHANGE_LARAVEL = "property-change-laravel";
     private final PhpModule _phpModule;
     private final LaravelModuleImpl _impl;
 
@@ -72,6 +74,10 @@ public class LaravelModule implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void notifyPropertyChanged(PropertyChangeEvent event) {
+        
     }
 
     @CheckForNull
