@@ -47,13 +47,13 @@ public abstract class LaravelModuleImpl {
 
     public PhpModuleProperties getPhpModuleProperties(PhpModule phpModule) {
         PhpModuleProperties properties = new PhpModuleProperties();
-        FileObject webroot = getWebrootDirectory(DIR_TYPE.APP);
-        if (webroot != null) {
-            properties.setWebRoot(webroot);
-        }
+//        FileObject webroot = getWebrootDirectory(DIR_TYPE.APP);
+//        if (webroot != null) {
+//            properties.setWebRoot(webroot);
+//        }
         FileObject test = getTestDirectory(DIR_TYPE.APP);
         if (test != null) {
-            properties.setTests(test);
+            properties = properties.setTests(test);
         }
         return properties;
     }
@@ -66,31 +66,44 @@ public abstract class LaravelModuleImpl {
         return getDirectory(type, FILE_TYPE.CONFIG, packageName);
     }
 
+    public FileObject getConfigFile() {
+        FileObject configDirectory = getConfigDirectory(DIR_TYPE.APP);
+        if (configDirectory != null) {
+            return configDirectory.getFileObject("app.php"); // NOI18N
+        }
+        return null;
+    }
+
     public FileObject getTestDirectory(DIR_TYPE type) {
-        return getDirectory(type, FILE_TYPE.TEST);
+        return getDirectory(type, FILE_TYPE.TESTS);
     }
 
     public FileObject getTestDirectory(DIR_TYPE type, String packageName) {
-        return getDirectory(type, FILE_TYPE.TEST, packageName);
+        return getDirectory(type, FILE_TYPE.TESTS, packageName);
     }
 
-    public FileObject getWebrootDirectory(DIR_TYPE type) {
-        PhpModuleProperties properties = phpModule.getLookup().lookup(PhpModuleProperties.Factory.class).getProperties();
-        FileObject webroot = properties.getWebRoot();
-        if (webroot == phpModule.getSourceDirectory()) {
-            return getDirectory(type, FILE_TYPE.WEBROOT);
-        }
-        return webroot != null ? webroot : getDirectory(type, FILE_TYPE.WEBROOT);
-    }
-
-    public FileObject getWebrootDirectory(DIR_TYPE type, String pluginName) {
-        return getDirectory(type, FILE_TYPE.WEBROOT, pluginName);
-    }
-
+//    public FileObject getWebrootDirectory(DIR_TYPE type) {
+//        PhpModuleProperties properties = phpModule.getLookup().lookup(PhpModuleProperties.Factory.class).getProperties();
+//        FileObject webroot = properties.getWebRoot();
+//        if (webroot == phpModule.getSourceDirectory()) {
+//            return getDirectory(type, FILE_TYPE.WEBROOT);
+//        }
+//        return webroot != null ? webroot : getDirectory(type, FILE_TYPE.WEBROOT);
+//    }
+//
+//    public FileObject getWebrootDirectory(DIR_TYPE type, String pluginName) {
+//        return getDirectory(type, FILE_TYPE.WEBROOT, pluginName);
+//    }
     protected FileObject getDirectory(DIR_TYPE type, FILE_TYPE fileType) {
         return getDirectory(type, fileType, null);
     }
 
+    protected final FileObject getLaravelDirectory() {
+        return LaravelModule.geLaravelDirectory(phpModule);
+    }
+
     public abstract FileObject getDirectory(DIR_TYPE type, FILE_TYPE fileType, String packageName);
+
+    public abstract FileObject getDirectory(DIR_TYPE type);
 
 }

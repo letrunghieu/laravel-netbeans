@@ -25,6 +25,7 @@ package info.hieule.framework.laravel.modules;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import org.netbeans.api.annotations.common.CheckForNull;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
 import org.netbeans.modules.php.api.phpmodule.PhpModuleProperties;
 import org.openide.filesystems.FileObject;
@@ -39,7 +40,7 @@ public class LaravelModule implements ChangeListener {
 
         NONE,
         APP,
-        START,
+        BOOTSTRAP,
         PUBLIC,
         VENDOR;
     }
@@ -47,22 +48,21 @@ public class LaravelModule implements ChangeListener {
     public enum FILE_TYPE {
 
         NONE,
-        MODEL,
-        VIEW,
-        ELEMENT,
-        LAYOUT,
-        CONTROLLER,
-        HELPER,
-        WEBROOT,
-        TEST,
-        TESTCASE,
-        COMMAND,
+        COMMANDS,
         CONFIG,
-        TMP,;
+        CONTROLLERS,
+        MIGRATIONS,
+        SEEDS,
+        LANG,
+        MODELS,
+        OTHER,
+        TESTS,
+        VIEWS,
+        PUBLIC,
 
     }
     private final PhpModule _phpModule;
-    private LaravelModuleImpl _impl;
+    private final LaravelModuleImpl _impl;
 
     public LaravelModule(PhpModule phpModule, LaravelModuleImpl impl) {
         this._phpModule = phpModule;
@@ -74,8 +74,21 @@ public class LaravelModule implements ChangeListener {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @CheckForNull
+    public static FileObject geLaravelDirectory(PhpModule phpModule) {
+        if (phpModule == null) {
+            return null;
+        }
+        FileObject sourceDirectory = phpModule.getSourceDirectory();
+        return sourceDirectory;
+    }
+
     public FileObject getConfigDirectory(DIR_TYPE type) {
         return _impl.getConfigDirectory(type);
+    }
+    
+    public FileObject getConfigFile() {
+        return _impl.getConfigFile();
     }
 
     public PhpModuleProperties getPhpModuleProperties(PhpModule phpModule) {

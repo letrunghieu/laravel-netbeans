@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Hieu Le <letrunghieu.cse09@gmail.com>.
@@ -21,28 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel;
-
-import java.util.prefs.Preferences;
-import org.netbeans.modules.php.api.phpmodule.PhpModule;
+package info.hieule.framework.laravel.github;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class LaravelPreferences {
+public class GithubTagCommit {
 
-    private static final String ENABLED = "enabled";
+    private final String sha;
+    private final String url;
 
-    public static void setEnabled(PhpModule phpModule, Boolean isEnabled) {
-        getPreferences(phpModule).putBoolean(ENABLED, isEnabled);
+    public GithubTagCommit(String sha, String url) {
+        this.sha = sha;
+        this.url = url;
     }
 
-    public static boolean isEnabled(PhpModule phpModule) {
-        return getPreferences(phpModule).getBoolean(ENABLED, false);
+    public String getSha() {
+        return sha;
     }
 
-    private static Preferences getPreferences(PhpModule phpModule) {
-        return phpModule.getPreferences(LaravelPreferences.class, true);
+    public String getUrl() {
+        return url;
     }
 }

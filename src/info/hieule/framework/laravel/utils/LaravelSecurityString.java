@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Hieu Le <letrunghieu.cse09@gmail.com>.
@@ -21,28 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel;
+package info.hieule.framework.laravel.utils;
 
-import java.util.prefs.Preferences;
-import org.netbeans.modules.php.api.phpmodule.PhpModule;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.List;
+import org.apache.commons.lang.RandomStringUtils;
+import org.openide.filesystems.FileObject;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class LaravelPreferences {
+public class LaravelSecurityString {
 
-    private static final String ENABLED = "enabled";
+    private static final String _SECURITY_STRING_LINE = "'key' => 'YourSecretKey!!!'";
+    private static final String _SECURITY_STRING_FORMAT = "\t'key' => '%s'";
 
-    public static void setEnabled(PhpModule phpModule, Boolean isEnabled) {
-        getPreferences(phpModule).putBoolean(ENABLED, isEnabled);
-    }
-
-    public static boolean isEnabled(PhpModule phpModule) {
-        return getPreferences(phpModule).getBoolean(ENABLED, false);
-    }
-
-    private static Preferences getPreferences(PhpModule phpModule) {
-        return phpModule.getPreferences(LaravelPreferences.class, true);
+    public static void updateSecurityString(FileObject configFile) throws IOException {
+        List<String> lines = configFile.asLines();
+        String newKey = RandomStringUtils.randomAlphanumeric(32);
+        OutputStream outputStream = configFile.getOutputStream();
+        PrintWriter pw = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"), true); // NOI18N
+        try {
+            for (String line : lines) {
+                if (line.contains(_SECURITY_STRING_LINE)) {
+                    line = String.format(_SECURITY_STRING_FORMAT, newKey);
+                }
+                pw.println(line);
+            }
+        } finally {
+            outputStream.close();
+            pw.close();
+        }
     }
 }

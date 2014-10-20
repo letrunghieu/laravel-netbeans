@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Hieu Le <letrunghieu.cse09@gmail.com>.
@@ -21,28 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel;
+package info.hieule.framework.laravel.versions;
 
-import java.util.prefs.Preferences;
-import org.netbeans.modules.php.api.phpmodule.PhpModule;
+import com.github.zafarkhaja.semver.Version;
+import java.util.Comparator;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class LaravelPreferences {
+public class LaravelVersionComparator implements Comparator<String> {
 
-    private static final String ENABLED = "enabled";
+    private boolean _isNewestFirst;
 
-    public static void setEnabled(PhpModule phpModule, Boolean isEnabled) {
-        getPreferences(phpModule).putBoolean(ENABLED, isEnabled);
+    public LaravelVersionComparator() {
+        this(true);
     }
 
-    public static boolean isEnabled(PhpModule phpModule) {
-        return getPreferences(phpModule).getBoolean(ENABLED, false);
+    public LaravelVersionComparator(boolean isNewestFirst) {
+        _isNewestFirst = isNewestFirst;
     }
 
-    private static Preferences getPreferences(PhpModule phpModule) {
-        return phpModule.getPreferences(LaravelPreferences.class, true);
+    @Override
+    public int compare(String o1, String o2) {
+        Version v1 = LaravelVersion.fromString(o1);
+        Version v2 = LaravelVersion.fromString(o2);
+        return _isNewestFirst ? v2.compareTo(v1) : v1.compareTo(v2);
     }
+
 }

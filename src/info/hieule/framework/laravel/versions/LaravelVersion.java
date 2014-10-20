@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Hieu Le <letrunghieu.cse09@gmail.com>.
@@ -21,28 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel;
+package info.hieule.framework.laravel.versions;
 
-import java.util.prefs.Preferences;
-import org.netbeans.modules.php.api.phpmodule.PhpModule;
+import com.github.zafarkhaja.semver.Version;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class LaravelPreferences {
+public class LaravelVersion {
 
-    private static final String ENABLED = "enabled";
-
-    public static void setEnabled(PhpModule phpModule, Boolean isEnabled) {
-        getPreferences(phpModule).putBoolean(ENABLED, isEnabled);
+    public static Version fromString(String version) {
+        return Version.valueOf(version.substring(1));
     }
 
-    public static boolean isEnabled(PhpModule phpModule) {
-        return getPreferences(phpModule).getBoolean(ENABLED, false);
-    }
-
-    private static Preferences getPreferences(PhpModule phpModule) {
-        return phpModule.getPreferences(LaravelPreferences.class, true);
+    public static String versionToString(Version version) {
+        return "v" + version.toString();
     }
 }

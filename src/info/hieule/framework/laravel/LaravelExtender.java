@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Hieu Le <letrunghieu.cse09@gmail.com>.
@@ -23,26 +23,27 @@
  */
 package info.hieule.framework.laravel;
 
-import java.util.prefs.Preferences;
+import info.hieule.framework.laravel.wizards.NewProjectConfigurationPanel;
+import java.util.Set;
+import org.netbeans.api.annotations.common.CheckForNull;
 import org.netbeans.modules.php.api.phpmodule.PhpModule;
+import org.netbeans.modules.php.spi.framework.PhpModuleExtender;
+import org.openide.filesystems.FileObject;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class LaravelPreferences {
+public interface LaravelExtender {
 
-    private static final String ENABLED = "enabled";
+    public Set<FileObject> extend(PhpModule phpModule) throws PhpModuleExtender.ExtendingException;
 
-    public static void setEnabled(PhpModule phpModule, Boolean isEnabled) {
-        getPreferences(phpModule).putBoolean(ENABLED, isEnabled);
-    }
+    public class Factory {
 
-    public static boolean isEnabled(PhpModule phpModule) {
-        return getPreferences(phpModule).getBoolean(ENABLED, false);
-    }
+        @CheckForNull
+        public static LaravelExtender create(NewProjectConfigurationPanel panel) {
 
-    private static Preferences getPreferences(PhpModule phpModule) {
-        return phpModule.getPreferences(LaravelPreferences.class, true);
+            return new LaravelExtenderVersion4(panel);
+        }
     }
 }

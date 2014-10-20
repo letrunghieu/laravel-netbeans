@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2014 Hieu Le <letrunghieu.cse09@gmail.com>.
@@ -21,28 +21,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package info.hieule.framework.laravel;
-
-import java.util.prefs.Preferences;
-import org.netbeans.modules.php.api.phpmodule.PhpModule;
+package info.hieule.framework.laravel.github;
 
 /**
  *
  * @author Hieu Le <letrunghieu.cse09@gmail.com>
  */
-public class LaravelPreferences {
+public class GithubTag {
 
-    private static final String ENABLED = "enabled";
+    private final String name;
+    private final String zipball_url;
+    private final String tarball_url;
+    private final GithubTagCommit commit;
 
-    public static void setEnabled(PhpModule phpModule, Boolean isEnabled) {
-        getPreferences(phpModule).putBoolean(ENABLED, isEnabled);
+    // Format
+    //  {
+    //    "name": "4.1.0",
+    //    "zipball_url": "https://api.github.com/repos/laravel/laravel/zipball/4.1.0",
+    //    "tarball_url": "https://api.github.com/repos/laravel/laravel/tarball/4.1.0",
+    //    "commit": {
+    //      "sha": "3053d486e64238b3698c14179f9881a55f9ac08b",
+    //      "url": "https://api.github.com/repos/laravel/laravel/commits/3053d486e64238b3698c14179f9881a55f9ac08b"
+    //    }
+    //  }
+    public GithubTag(String name, String zipball_url, String tarball_url, GithubTagCommit commit) {
+        this.name = name;
+        this.zipball_url = zipball_url;
+        this.tarball_url = tarball_url;
+        this.commit = commit;
     }
 
-    public static boolean isEnabled(PhpModule phpModule) {
-        return getPreferences(phpModule).getBoolean(ENABLED, false);
+    public String getName() {
+        return name;
     }
 
-    private static Preferences getPreferences(PhpModule phpModule) {
-        return phpModule.getPreferences(LaravelPreferences.class, true);
+    public String getZipballUrl() {
+        return zipball_url;
+    }
+
+    public String getTarballUrl() {
+        return tarball_url;
+    }
+
+    public GithubTagCommit getCommit() {
+        return commit;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
