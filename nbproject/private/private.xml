@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/PROJECTS/PERSONAL/laravel-netbeans/src/info/hieule/framework/laravel/modules/Laravel4ModuleImpl.java</file>
-            <file>file:/D:/PROJECTS/PERSONAL/laravel-netbeans/src/info/hieule/framework/laravel/wizards/NewProjectConfigurationPanel.java</file>
-            <file>file:/D:/PROJECTS/PERSONAL/laravel-netbeans/src/info/hieule/framework/laravel/LaravelFrameworkProvider.java</file>
-            <file>file:/D:/PROJECTS/PERSONAL/laravel-netbeans/src/info/hieule/framework/laravel/versions/LaravelVersionComparator.java</file>
-            <file>file:/D:/PROJECTS/PERSONAL/laravel-netbeans/src/info/hieule/framework/laravel/LaravelModuleExtender.java</file>
             <file>file:/D:/PROJECTS/PERSONAL/laravel-netbeans/src/info/hieule/framework/laravel/LaravelExtenderVersion4.java</file>
-            <file>file:/D:/PROJECTS/PERSONAL/laravel-netbeans/src/info/hieule/framework/laravel/Bundle.properties</file>
+            <file>file:/D:/PROJECTS/PERSONAL/laravel-netbeans/src/info/hieule/framework/laravel/LaravelFrameworkProvider.java</file>
+            <file>file:/D:/PROJECTS/PERSONAL/laravel-netbeans/src/info/hieule/framework/laravel/LaravelIgnoredFilesExtender.java</file>
         </group>
     </open-files>
 </project-private>

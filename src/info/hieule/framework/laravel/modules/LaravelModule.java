@@ -86,6 +86,10 @@ public class LaravelModule implements ChangeListener {
     public FileObject getConfigDirectory(DIR_TYPE type) {
         return _impl.getConfigDirectory(type);
     }
+    
+    public FileObject getConfigFile() {
+        return _impl.getConfigFile();
+    }
 
     public PhpModuleProperties getPhpModuleProperties(PhpModule phpModule) {
         return _impl.getPhpModuleProperties(phpModule);

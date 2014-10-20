@@ -78,29 +78,7 @@ public class LaravelFrameworkProvider extends PhpFrameworkProvider {
 
     @Override
     public File[] getConfigurationFiles(PhpModule phpModule) {
-        LaravelModule laravelModule = LaravelModule.forPhpModule(phpModule);
-        if (laravelModule == null) {
-            return new File[0];
-        }
-        List<File> configFiles = new LinkedList<File>();
-        FileObject config = laravelModule.getConfigDirectory(LaravelModule.DIR_TYPE.APP);
-        if (config == null) {
-            _LOGGER.log(Level.WARNING, (phpModule.getDisplayName()));
-            return new File[0];
-        }
-        if (config.isFolder()) {
-            Enumeration<? extends FileObject> children = config.getChildren(false);
-            while (children.hasMoreElements()) {
-                FileObject child = children.nextElement();
-                if (child.isData() && FileUtils.isPhpFile(child)) {
-                    configFiles.add(FileUtil.toFile(child));
-                }
-            }
-        }
-        if (!configFiles.isEmpty()) {
-            Collections.sort(configFiles, _FILE_COMPARATOR);
-        }
-        return configFiles.toArray(new File[configFiles.size()]);
+        return new File[0];
     }
 
     @Override

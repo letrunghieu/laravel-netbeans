@@ -23,6 +23,8 @@
  */
 package info.hieule.framework.laravel;
 
+import info.hieule.framework.laravel.modules.LaravelModule;
+import info.hieule.framework.laravel.utils.LaravelSecurityString;
 import info.hieule.framework.laravel.wizards.NewProjectConfigurationPanel;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -38,6 +40,7 @@ import java.util.Enumeration;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -74,6 +77,7 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
         }
         _installLaravel(phpModule, targetDirectory);
         targetDirectory.refresh(true);
+        _updateSecurityString(phpModule);
         
         LaravelPreferences.setEnabled(phpModule, Boolean.TRUE);
         return Collections.emptySet();
@@ -125,6 +129,20 @@ public class LaravelExtenderVersion4 implements LaravelExtender {
             progressText.setText(sourceUrl + " is not a valid URL");
         } catch (IOException ex) {
             progressText.setText("Cannot open " + sourceUrl + " as stream");
+        }
+    }
+
+    private void _updateSecurityString(PhpModule phpModule) {
+        LaravelModule module = LaravelModule.forPhpModule(phpModule);
+        if (module != null) {
+            FileObject config = module.getConfigFile();
+            if (config != null) {
+                try {
+                    LaravelSecurityString.updateSecurityString(config);
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
+            }
         }
     }
 

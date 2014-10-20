@@ -66,6 +66,14 @@ public abstract class LaravelModuleImpl {
         return getDirectory(type, FILE_TYPE.CONFIG, packageName);
     }
 
+    public FileObject getConfigFile() {
+        FileObject configDirectory = getConfigDirectory(DIR_TYPE.APP);
+        if (configDirectory != null) {
+            return configDirectory.getFileObject("app.php"); // NOI18N
+        }
+        return null;
+    }
+
     public FileObject getTestDirectory(DIR_TYPE type) {
         return getDirectory(type, FILE_TYPE.TESTS);
     }
