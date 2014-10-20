@@ -38,6 +38,7 @@ import org.netbeans.modules.php.api.phpmodule.PhpModuleProperties;
 import org.netbeans.modules.php.api.util.FileUtils;
 import org.netbeans.modules.php.spi.framework.PhpFrameworkProvider;
 import org.netbeans.modules.php.spi.framework.PhpModuleActionsExtender;
+import org.netbeans.modules.php.spi.framework.PhpModuleCustomizerExtender;
 import org.netbeans.modules.php.spi.framework.PhpModuleExtender;
 import org.netbeans.modules.php.spi.framework.PhpModuleIgnoredFilesExtender;
 import org.netbeans.modules.php.spi.framework.commands.FrameworkCommandSupport;
@@ -85,6 +86,18 @@ public class LaravelFrameworkProvider extends PhpFrameworkProvider {
     public PhpModuleExtender createPhpModuleExtender(PhpModule phpModule) {
         return new LaravelModuleExtender();
     }
+
+    @Override
+    public PhpModuleCustomizerExtender createPhpModuleCustomizerExtender(PhpModule phpModule) {
+        LaravelModuleCustomizerExtender customizer = new LaravelModuleCustomizerExtender(phpModule);
+        LaravelModule module = LaravelModule.forPhpModule(phpModule);
+        if (module != null) {
+            customizer.addChangeListener(module);
+        }
+        return customizer;
+    }
+    
+    
 
     @Override
     public PhpModuleProperties getPhpModuleProperties(PhpModule phpModule) {
